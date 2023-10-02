@@ -10,6 +10,7 @@ import { AntDesign } from '@expo/vector-icons';
 import ProfileScreen from './screens/ProfileScreen';
 import DiscoverScreen from './screens/DiscoverScreen';
 import FeedScreen from './screens/FeedScreen';
+import LoginPage from './screens/LoginPage';
 
 const Tab = createBottomTabNavigator();
 
@@ -91,6 +92,7 @@ const Navigation = () => {
   return (
         <NavigationContainer>
             <Stack.Navigator>
+                <Stack.Screen name="Login" component={LoginPage} options={{ headerShown: false }} />
                 <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
