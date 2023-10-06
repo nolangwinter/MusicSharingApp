@@ -1277,7 +1277,7 @@
     xcode "^3.0.1"
     xml2js "0.6.0"
 
-"@expo/config-plugins@^4.0.14":
+"@expo/config-plugins@^4.0.2":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-4.1.5.tgz#9d357d2cda9c095e511b51583ede8a3b76174068"
   integrity sha512-RVvU40RtZt12HavuDAe+LDIq9lHj7sheOfMEHdmpJ/uTA8pgvkbc56XF6JHQD+yRr6+uhhb+JnAasGq49dsQbw==
@@ -3374,13 +3374,12 @@ execa@^5.0.0:
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
-expo-app-auth@^12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/expo-app-auth/-/expo-app-auth-12.0.0.tgz#0a2ad4e6d013e1d0b799d2d9be2f42930de28d4d"
-  integrity sha512-MlvuiaSoFXilMC6UAb1cESx2JCZAfhNTNs+fjkU/0CSQsY2COE5cwLqKDpnsrz4ia8th6QPxsomeRzlSJkV5aA==
+expo-app-auth@~11.1.0:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/expo-app-auth/-/expo-app-auth-11.1.1.tgz#14331bfc26f754560f08c5e4100b2a958b4ea55e"
+  integrity sha512-BYsVJ54GySnpVjRLmUX//XkDkqlqigpOS+MWBARURecPu038Ei2tsIsboLqbaa6oyoWhtU9OfYacVHczE/BFmQ==
   dependencies:
-    "@expo/config-plugins" "^4.0.14"
-    expo-modules-core "0.7.0"
+    "@expo/config-plugins" "^4.0.2"
     invariant "^2.2.4"
 
 expo-application@~5.3.0:
@@ -3450,21 +3449,20 @@ expo-modules-autolinking@1.5.1:
     find-up "^5.0.0"
     fs-extra "^9.1.0"
 
-expo-modules-core@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-0.7.0.tgz#ab9ff51410a1dca22087a7db5a95ada2693b6d5a"
-  integrity sha512-6jd7m2J7kMsnpGtWb4KF1wDf/57+4Tnf1l0kMoww8iRsY5al7QRXhwdy5mSqQ2TaJWUspudsWtFWK5IlYw5NXA==
-  dependencies:
-    compare-versions "^3.4.0"
-    invariant "^2.2.4"
-
-expo-modules-core@1.5.11:
+expo-modules-core@1.5.11, expo-modules-core@^1.5.11:
   version "1.5.11"
   resolved "https://registry.yarnpkg.com/expo-modules-core/-/expo-modules-core-1.5.11.tgz#6ee33641cec5ef9c629393a267cef122110d2bf0"
   integrity sha512-1Dj2t74nVjxq6xEQf2b9WFfAMhPzVnR0thY0PfRFgob4STyj3sq1U4PIHVWvKQBtDKIa227DrNRb+Hu+LqKWQg==
   dependencies:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
+
+expo-splash-screen@~0.20.5:
+  version "0.20.5"
+  resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.20.5.tgz#ebeba3e3977606830f74f506ab2cc25042bb7efd"
+  integrity sha512-nTALYdjHpeEA30rdOWSguxn72ctv8WM8ptuUgpfRgsWyn4i6rwYds/rBXisX69XO5fg+XjHAQqijGx/b28+3tg==
+  dependencies:
+    "@expo/prebuild-config" "6.2.6"
 
 expo-status-bar@~1.6.0:
   version "1.6.0"
