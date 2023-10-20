@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 const jwt = require('jsonwebtoken');
 
 // connecting to the database
-mongoose.connect("mongodb+srv://nolan:nolan@cluster0.54yw1rc.mongodb.net/", {
+mongoose.connect("mongodb+srv://nolangwinter:nolan@cluster1.8lnk49n.mongodb.net/", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 // after connecting
@@ -27,4 +27,32 @@ mongoose.connect("mongodb+srv://nolan:nolan@cluster0.54yw1rc.mongodb.net/", {
 
 app.listen(port, () => {
     console.log("Server is running on port 3000");
+})
+
+const User = require('./models/user');
+const Post = require('./models/post');
+
+app.post("/login", async (req, res) => {
+    try {
+        const {username, email} = req.body;
+        const existingUser = await User.findOne({email});
+        if (existingUser) {
+            console.log("existing user");
+            return res.status(200).json({message:"Existing User, successful Login"});
+        }
+
+        // create a new user
+        const newUser = new User({username, email});
+
+        console.log("newUser, ", newUser);
+
+        //save the user to the backend
+        await newUser.save();
+
+
+        res.status(200).json({messgage:"New User Registration complete"});
+    } catch(err) {
+        console.log("Error registering user");
+        res.status(500).json({message:"Error registering user"});
+    }
 })
