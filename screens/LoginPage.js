@@ -11,7 +11,7 @@ import axios from "axios";
 
 const LoginPage = () => {
     const navigation = useNavigation();
-    // checks if the token from spotify is still valid and will keep the user signed in
+    //checks if the token from spotify is still valid and will keep the user signed in
     // useEffect(() => {
     //     const checkTokenValidity = async () => {
     //       const accessToken = await AsyncStorage.getItem("token");
@@ -33,6 +33,7 @@ const LoginPage = () => {
     //     checkTokenValidity();
     //   },[])
 
+    // fetches the user profile and returns a json 
     const getProfile = async () => {
         const accessToken = await AsyncStorage.getItem("token");
         try {
@@ -48,6 +49,7 @@ const LoginPage = () => {
         }
       };
 
+      // gets permission from the user to link their spotify account and information 
       async function authenticate ()  {
         const config = {
           issuer:"https://accounts.spotify.com",
@@ -65,12 +67,10 @@ const LoginPage = () => {
         }
         try {
             const result = await AppAuth.authAsync(config);
-            // console.log(result);
             if(result.accessToken){
               const expirationDate = new Date(result.accessTokenExpirationDate).getTime(); 
     
-              // console.log("expiration date: ", expirationDate.toString());
-              // instead of storing in asyncStorage, store in the database
+              // locally store the access token and the expiration date 
               AsyncStorage.setItem("token",result.accessToken);
               AsyncStorage.setItem("expirationDate",expirationDate.toString());
               
@@ -80,30 +80,31 @@ const LoginPage = () => {
         }
       }
 
+
       const handleLogin = async () => {
         await authenticate();
-        const Testuser = await getProfile();
-        // console.log(Testuser);
-        // console.log(Testuser.display_name);
-        
+        const newUser = await getProfile();
+        console.log(newUser);
         const user = {
-            username:Testuser.display_name,
-            email:Testuser.email,
+            username:newUser.display_name,
+            email:newUser.email,
+            profilePic:newUser.images[0].url
         }
         console.log(user);
-        // navigation.navigate("Main");
-        // // this communicates with app.post (express) within index.js
+
+        // // this communicates with app.post (express) within index.js and passes it the user that is logging/ registering
         axios.post('http://localhost:3000/login', user).then((response) => {
-            // console.log(response);
+            console.log(response);
             const token = response.data.token;
             // adding the token to asyncstorage
-            // AsyncStorage.setItem("authToken", token);
+            AsyncStorage.setItem("authToken", token);
+
             navigation.navigate("Main");
         }).catch((error) => {
             Alert.alert("Login Failed", "An error occured during login");
             console.log("error", error);
         })
-    }
+      }
 
   return (
     <SafeAreaView>

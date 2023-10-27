@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    content: {
-        type:String
-    },
     user: {
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true
+    },
+    songName: {
+        type:String
+    },
+    artistName: {
+        type:String
+    },
+    albumArt: {
+        type:String
+    },
+    previewUrl: {
+        type:String
     },
     likes: [
         {
@@ -15,20 +24,10 @@ const postSchema = new mongoose.Schema({
             ref:"User"
         }
     ],
-    replies: [
+    dislikes: [
         {
-            user: {
-                type:mongoose.Schema.Types.ObjectId,
-                ref:"User",
-            },
-            content: {
-                type:String,
-                require:true
-            },
-            createdAt: {
-                type:Date,
-                default:Date.now
-            }
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"User"
         }
     ],
     createdAt: {

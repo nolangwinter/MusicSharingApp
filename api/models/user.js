@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         unique:true,
         required:true,
     },
-    profilePicture: {
+    profilePic: {
         type:String
     },
     joinedDate: {
