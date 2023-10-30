@@ -19,22 +19,10 @@ const userSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
-    sentFollowRequest: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    }],
-    receiveFollowRequest: [{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    }],
     followers: [{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     }],
-    verified: {
-        type:Boolean,
-        default:false
-    },
     verificationToken:String
 })
 

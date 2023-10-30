@@ -84,17 +84,17 @@ const LoginPage = () => {
       const handleLogin = async () => {
         await authenticate();
         const newUser = await getProfile();
-        console.log(newUser);
+        // console.log(newUser);
         const user = {
             username:newUser.display_name,
             email:newUser.email,
             profilePic:newUser.images[0].url
         }
-        console.log(user);
+        // console.log(user);
 
         // // this communicates with app.post (express) within index.js and passes it the user that is logging/ registering
         axios.post('http://localhost:3000/login', user).then((response) => {
-            console.log(response);
+            // console.log(response);
             const token = response.data.token;
             // adding the token to asyncstorage
             AsyncStorage.setItem("authToken", token);
@@ -116,7 +116,7 @@ const LoginPage = () => {
         </Text>
       </View>
 
-      <View style={{height:80}}/>
+      <View style={{height:"60%"}}/>
 
       <Pressable style={styles.spotifySignIn} onPress={() => handleLogin()} >
         <Entypo style={styles.spotifyLogo} name="spotify" size={30}/>

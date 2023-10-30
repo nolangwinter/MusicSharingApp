@@ -89,3 +89,70 @@ app.post("/login", async (req, res) => {
         res.status(500).json({message:"error getting the user profile"});
     }
   })
+
+  // endpoint to access all of the users except the logged in user
+    app.get("/user/:userId", (req, res) => {
+        try {
+        const loggedInUserId = req.params.userId;
+
+        User.find({ _id: { $ne: loggedInUserId } })
+            .then((users) => {
+            res.status(200).json(users);
+            })
+            .catch((error) => {
+            console.log("Error: ", error);
+            res.status(500).json("errror");
+            });
+        } catch (error) {
+        res.status(500).json({ message: "error getting the users" });
+        }
+    });
+
+    // endpoint to fetch all of the users that the logged in user is following
+    app.get("/follow/:userId", (req, res) => {
+        try {
+        const loggedInUserId = req.params.userId;
+
+        User.find({ followers: loggedInUserId })
+            .then((users) => {
+            res.status(200).json(users);
+            })
+            .catch((error) => {
+            console.log("Error: ", error);
+            res.status(500).json("errror");
+            });
+        } catch (error) {
+        res.status(500).json({ message: "error getting the users" });
+        }
+    });
+
+    //endpoint to follow a particular user 
+  app.post("/follow", async (req, res) => {
+    const {currentUserId, selectedUserId} = req.body;
+    try {
+        // adds the current user to the selected user's followers
+        await User.findByIdAndUpdate(selectedUserId,{
+            $push:{followers:currentUserId}
+        });
+
+        res.sendStatus(200);
+    } catch(error) {
+        console.log("error", error);
+        res.status(500).json({message:"error following user"})
+    }
+  });
+
+  // endpoint to unfollow a particular user
+  app.post("/users/unfollow", async (req, res) => {
+    const { loggedInUserId, targetUserId } = req.body;
+  
+    try {
+      await User.findByIdAndUpdate(targetUserId, {
+        $pull: { followers: loggedInUserId },
+      });
+  
+      res.status(200).json({ message: "Unfollowed successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error unfollowing user" });
+    }
+  });
