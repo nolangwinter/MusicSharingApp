@@ -29,6 +29,7 @@ const ProfileScreen = () => {
     fetchProfile();
   });
 
+
   const getRecentlyPlayedSongs = async () => {
     const accessToken = await AsyncStorage.getItem("token");
     try {
