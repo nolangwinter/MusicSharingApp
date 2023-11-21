@@ -8,64 +8,66 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ProfileScreen from './screens/ProfileScreen';
-import DiscoverScreen from './screens/DiscoverScreen';
 import FeedScreen from './screens/FeedScreen';
 import LoginPage from './screens/LoginPage';
+import FriendsScreen from './screens/FriendsScreen';
+import PostScreen from './screens/PostScreen';
 
 const Tab = createBottomTabNavigator();
 
 function BottomTabs () {
     return (
-        <Tab.Navigator screenOptions={{
-            tabBarStyle: {
-                backgroundColor: "rgba(0,0,0,0.5)",
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                shadowOpacity:4,
-                shadowRadius:4,
-                elevation:4,
-                shadowOffset:{
-                    width:0,
-                    height:-4
-                },
-                borderTopWidth:0
-
-            }
-        }}>
-            <Tab.Screen
-                name="Discover"
-                component={DiscoverScreen}
-                options={{
-                    tabBarLabel:"Discover",
-                    headerShown:false,
-                    tabBarLabelStyle: { color: "white" },
-                    tabBarIcon: ({focused}) => 
-                        focused ? (
-                            <MaterialCommunityIcons name="music-box-multiple" size={24} color="white" />
-                        ) : (
-                            <MaterialCommunityIcons name="music-box-multiple-outline" size={24} color="white" />
-                        )
-                }}
-            />
-
+        <Tab.Navigator>
             <Tab.Screen
                 name="Feed"
                 component={FeedScreen}
                 options={{
                     tabBarLabel:"Feed",
                     headerShown:false,
-                    tabBarLabelStyle: { color: "white" },
+                    tabBarLabelStyle: { color: "black" },
                     tabBarIcon: ({focused}) =>
                     focused ? (
-                        <Entypo name="home" size={24} color="white" />
+                        <Entypo name="home" size={24} color="black" />
                     ) : (
-                        <AntDesign name="home" size={24} color="white" />
+                        <AntDesign name="home" size={24} color="black" />
                     )
                 }}
 
-            />    
+            />  
+
+            <Tab.Screen
+                name="Post"
+                component={PostScreen}
+                options={{
+                    tabBarLabel:"Post",
+                    headerShown:false,
+                    tabBarLabelStyle: { color: "black" },
+                    tabBarIcon: ({focused}) => 
+                        focused ? (
+                            <MaterialCommunityIcons name="music-box-multiple" size={24} color="black" />
+                        ) : (
+                            <MaterialCommunityIcons name="music-box-multiple-outline" size={24} color="black" />
+                        )
+                }}
+            /> 
+
+            <Tab.Screen
+                name="Friends"
+                component={FriendsScreen}
+                options={{
+                    tabBarLabel:"Friends",
+                    headerShown:false,
+                    tabBarLabelStyle: { color: "black" },
+                    tabBarIcon:({focused}) =>
+                        focused ? (
+                            <Ionicons name="person-add" size={24} color="black" />
+                        ) : (
+                            <Ionicons name="person-add-outline" size={24} color="black" />
+                        )
+                }}
+            />
+
+
 
             <Tab.Screen
                 name="Profile"
@@ -73,15 +75,16 @@ function BottomTabs () {
                 options={{
                     tabBarLabel:"Profile",
                     headerShown:false,
-                    tabBarLabelStyle: { color: "white" },
+                    tabBarLabelStyle: { color: "black" },
                     tabBarIcon:({focused}) =>
                         focused ? (
-                            <Ionicons name="person" size={24} color="white" />
+                            <Ionicons name="person-circle" size={28} color="black" />
                         ) : (
-                            <Ionicons name="person-outline" size={24} color="white" />
+                            <Ionicons name="person-circle-outline" size={28} color="black" />
                         )
                 }}
             />
+
 
         </Tab.Navigator>
     )
