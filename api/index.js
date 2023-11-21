@@ -236,6 +236,63 @@ app.post("/create-post", async (req, res) => {
         .json({ message: "An error occurred while unliking the post" });
     }
   });
+
+  //endpoint for disliking a particular post
+  app.put("/posts/:postId/:userId/dislike", async (req, res) => {
+    const postId = req.params.postId;
+    const userId = req.params.userId; // Assuming you have a way to get the logged-in user's ID
+  
+    try {
+      const post = await Post.findById(postId).populate("user", "name");
+  
+      const updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { $addToSet: { dislikes: userId } }, // Add user's ID to the likes array
+        { new: true } // To return the updated post
+      );
+  
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+      updatedPost.user = post.user;
+  
+      res.json(updatedPost);
+    } catch (error) {
+      console.error("Error liking post:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred while liking the post" });
+    }
+  });
+  
+  //endpoint to undislike a post
+  app.put("/posts/:postId/:userId/undislike", async (req, res) => {
+    const postId = req.params.postId;
+    const userId = req.params.userId;
+  
+    try {
+      const post = await Post.findById(postId).populate("user", "name");
+  
+      const updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { $pull: { dislikes: userId } },
+        { new: true }
+      );
+  
+      updatedPost.user = post.user;
+  
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Post not found" });
+      }
+  
+      res.json(updatedPost);
+    } catch (error) {
+      console.error("Error unliking post:", error);
+      res
+        .status(500)
+        .json({ message: "An error occurred while unliking the post" });
+    }
+  });
   
   //endpoint to get all the posts
   app.get("/get-posts", async (req, res) => {

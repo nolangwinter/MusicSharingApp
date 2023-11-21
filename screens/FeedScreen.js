@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native'
 import React, {useEffect, useContext, useState, useCallback } from 'react';
 import { UserType } from '../UserContext';
 import jwt_decode from 'jwt-decode';
@@ -49,11 +49,11 @@ const FeedScreen = () => {
     )
 
   return (
-    <SafeAreaView>
+    <ScrollView style={{marginTop:60}}>
       {posts?.map((item, index) => (
         <PostedSongs item={item} index={index} />
       ))}
-    </SafeAreaView>
+    </ScrollView>
   )
 }
 
