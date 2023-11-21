@@ -9,9 +9,6 @@ const PostScreen = () => {
   const [searched, setSearched] = useState("");
   const [searchedTracks, setSearchedTracks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const CLIENT_ID = '53d1686099db4b659b99550773395b7e';
-  const CLIENT_SECRET = '93f2d6c9533a465ab08d50bc4c017913';
-
 
   const search = async () => {
     console.log(`Searching for ${searched}`)

@@ -15,9 +15,6 @@ const postSchema = new mongoose.Schema({
     albumArt: {
         type:String
     },
-    previewUrl: {
-        type:String
-    },
     likes: [
         {
             type:mongoose.Schema.Types.ObjectId,

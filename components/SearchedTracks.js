@@ -1,7 +1,33 @@
 import { StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { UserType } from '../UserContext';
+import axios from 'axios';
 
 const SearchedTracks = ({ item }) => {
+    const {userId, setUserId} = useContext(UserType);
+
+    const handlePostSubmit = () => {
+        const postData = {
+          userId,
+          song: item?.name,
+          artist: item?.album?.artists[0].name,
+          album: item?.album?.images[0].url,
+        };
+        console.log(postData)
+    
+        axios
+          .post("http://localhost:3000/create-post", postData)
+          .then((response) => {
+          })
+          .catch((error) => {
+            console.log("error creating post", error);
+          });
+    };
+
+
+
+
+
     return (
         <View style={{ margin: 10, flexDirection: "row" }}>
             <Image
@@ -18,17 +44,17 @@ const SearchedTracks = ({ item }) => {
             </View>
             <View style={{alignItems:"center", justifyContent:"center"}}>
                 <Pressable
-                onPress={() => console.log(item)}
-                style={{
-                    backgroundColor:"#1DB954",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: 10,
-                    borderColor: "#D0D0D0",
-                    borderWidth: 1,
-                    borderRadius: 5,
-                    height:50,
-                }}
+                    onPress={handlePostSubmit}
+                    style={{
+                        backgroundColor:"#1DB954",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        padding: 10,
+                        borderColor: "#D0D0D0",
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        height:50,
+                    }}
                 >
             <Text style={{fontSize:18, color:"white", textAlign:"center", fontWeight:"bold"}}>Post</Text>
             </Pressable>

@@ -9,7 +9,7 @@ const port = 3000;
 const cors = require('cors');
 app.use(cors())
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 const jwt = require('jsonwebtoken');
 
@@ -17,7 +17,7 @@ const jwt = require('jsonwebtoken');
 mongoose.connect("mongodb+srv://nolangwinter:nolan@cluster1.8lnk49n.mongodb.net/", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-// after connecting
+    // after connecting
 }).then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
@@ -44,115 +44,143 @@ const secretKey = generateSecretKey();
 // endpoint to login/register a user in the backend
 app.post("/login", async (req, res) => {
     try {
-        const {username, email, profilePic} = req.body;
-        const existingUser = await User.findOne({email});
+        const { username, email, profilePic } = req.body;
+        const existingUser = await User.findOne({ email });
         console.log(existingUser);
-        
+
         // if a user exists then permit a successful login
         if (existingUser) {
             console.log("existing user")
-            const token = jwt.sign({userId: existingUser._id}, secretKey);
+            const token = jwt.sign({ userId: existingUser._id }, secretKey);
             console.log("existing user token", token);
-            res.status(200).json({token});
+            res.status(200).json({ token });
         } else {
             // create a new user if user does not exist in the database
-            const newUser = new User({username, email, profilePic});
+            const newUser = new User({ username, email, profilePic });
 
             console.log("newUser, ", newUser);
 
             //save the user to the backend
             await newUser.save();
 
-            const token = jwt.sign({userId: newUser._id}, secretKey);
+            const token = jwt.sign({ userId: newUser._id }, secretKey);
             console.log("new user token", token);
-            res.status(200).json({token});
+            res.status(200).json({ token });
         }
 
-    } catch(err) {
+    } catch (err) {
         console.log("Error registering user");
-        res.status(500).json({message:"Error registering user"});
+        res.status(500).json({ message: "Error registering user" });
     }
 })
 
-  // endpoint to get the user profile
-  app.get("/profile/:userId", async (req, res) => {
+// endpoint to get the user profile
+app.get("/profile/:userId", async (req, res) => {
     try {
         const userId = req.params.userId;
         const user = await User.findById(userId);
 
-        if(!user) {
-            res.status(404).json({message:"User not found"});
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
         }
 
-        return res.status(200).json({user});
-    } catch(error) {
-        res.status(500).json({message:"error getting the user profile"});
+        return res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ message: "error getting the user profile" });
     }
-  })
+})
 
-  // endpoint to access all of the users except the logged in user
-    app.get("/user/:userId", (req, res) => {
-        try {
+// endpoint to access all of the users except the logged in user
+app.get("/user/:userId", (req, res) => {
+    try {
         const loggedInUserId = req.params.userId;
 
         User.find({ _id: { $ne: loggedInUserId } })
             .then((users) => {
-            res.status(200).json(users);
+                res.status(200).json(users);
             })
             .catch((error) => {
-            console.log("Error: ", error);
-            res.status(500).json("errror");
+                console.log("Error: ", error);
+                res.status(500).json("errror");
             });
-        } catch (error) {
+    } catch (error) {
         res.status(500).json({ message: "error getting the users" });
-        }
-    });
+    }
+});
 
-    // endpoint to fetch all of the users that the logged in user is following
-    app.get("/follow/:userId", (req, res) => {
-        try {
+// endpoint to fetch all of the users that the logged in user is following
+app.get("/follow/:userId", (req, res) => {
+    try {
         const loggedInUserId = req.params.userId;
 
         User.find({ followers: loggedInUserId })
             .then((users) => {
-            res.status(200).json(users);
+                res.status(200).json(users);
             })
             .catch((error) => {
-            console.log("Error: ", error);
-            res.status(500).json("errror");
+                console.log("Error: ", error);
+                res.status(500).json("errror");
             });
-        } catch (error) {
+    } catch (error) {
         res.status(500).json({ message: "error getting the users" });
-        }
-    });
+    }
+});
 
-    //endpoint to follow a particular user 
-  app.post("/follow", async (req, res) => {
-    const {currentUserId, selectedUserId} = req.body;
+//endpoint to follow a particular user 
+app.post("/follow", async (req, res) => {
+    const { currentUserId, selectedUserId } = req.body;
     try {
         // adds the current user to the selected user's followers
-        await User.findByIdAndUpdate(selectedUserId,{
-            $push:{followers:currentUserId}
+        await User.findByIdAndUpdate(selectedUserId, {
+            $push: { followers: currentUserId }
         });
 
         res.sendStatus(200);
-    } catch(error) {
-        console.log("error", error);
-        res.status(500).json({message:"error following user"})
-    }
-  });
-
-  // endpoint to unfollow a particular user
-  app.post("/users/unfollow", async (req, res) => {
-    const { loggedInUserId, targetUserId } = req.body;
-  
-    try {
-      await User.findByIdAndUpdate(targetUserId, {
-        $pull: { followers: loggedInUserId },
-      });
-  
-      res.status(200).json({ message: "Unfollowed successfully" });
     } catch (error) {
-      res.status(500).json({ message: "Error unfollowing user" });
+        console.log("error", error);
+        res.status(500).json({ message: "error following user" })
     }
-  });
+});
+
+// endpoint to unfollow a particular user
+app.post("/users/unfollow", async (req, res) => {
+    const { loggedInUserId, targetUserId } = req.body;
+
+    try {
+        await User.findByIdAndUpdate(targetUserId, {
+            $pull: { followers: loggedInUserId },
+        });
+
+        res.status(200).json({ message: "Unfollowed successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error unfollowing user" });
+    }
+});
+
+//endpoint to create a new post in the backend
+app.post("/create-post", async (req, res) => {
+    try {
+
+        const { userId, song, artist, album } = req.body;
+
+        console.log("user", userId)
+        console.log("song", song)
+        console.log("artist", artist)
+        console.log("albumart", album)
+
+        const newPostData = {
+            user: userId,
+            songName: song,
+            artistName: artist,
+            albumArt: album
+          };
+
+        const newPost = new Post(newPostData);
+
+        await newPost.save();
+
+        res.status(200).json({ message: "Post saved successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "post creation failed" });
+    }
+});
