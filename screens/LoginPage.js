@@ -63,6 +63,7 @@ const LoginPage = () => {
             "playlist-read-collaborative",
             "playlist-modify-public" // or "playlist-modify-private"
           ],
+          // loop back on android
           redirectUrl:"exp://localhost:8081/--/spotify-auth-callback"
         }
         try {

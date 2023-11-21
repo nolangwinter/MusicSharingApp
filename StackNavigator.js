@@ -8,10 +8,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ProfileScreen from './screens/ProfileScreen';
-import DiscoverScreen from './screens/DiscoverScreen';
 import FeedScreen from './screens/FeedScreen';
 import LoginPage from './screens/LoginPage';
 import FriendsScreen from './screens/FriendsScreen';
+import PostScreen from './screens/PostScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,10 +36,10 @@ function BottomTabs () {
             />  
 
             <Tab.Screen
-                name="Discover"
-                component={DiscoverScreen}
+                name="Post"
+                component={PostScreen}
                 options={{
-                    tabBarLabel:"Discover",
+                    tabBarLabel:"Post",
                     headerShown:false,
                     tabBarLabelStyle: { color: "black" },
                     tabBarIcon: ({focused}) => 
