@@ -1,5 +1,76 @@
 # MusicSharingApp
-Social music sharing mobile app that allows users to share songs between eachother
 
-## What I learned
-Design and build an app from the ground up, use api calls to fetch user data and song info, integrate MongoDB to store the user and post info, use the database in order to fetch and display data
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+Social Music Sharing App using Spotify
+
+
+
+### Built With
+
+React Native, Expo, JavaScript, Express.js, MongoDB, Spotify API
+
+### Requirements
+- Valid Spotify Premium account that needs to be added into the User Management list in the Spotify Developer Account
+- MacOS with the iOS simulator
+
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/CPSC491MusicSharingApp/MusicSharingApp.git
+   ```
+2. Install the app on the iOS Simulator
+   ```sh
+   npx expo run:ios
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Install NPM packages for API
+   ```sh
+   cd api
+   npm install
+   ```
+5. Connect to MongoDB Database (in a seperate terminal inside of the api folder)
+   ```sh
+   yarn start
+   ```
+6. Start the Expo App
+   ```sh
+   npx expo start
+   ```
+7. Switch to the developmental build
+   ```sh
+   s
+   ```
+8. Open in iOS Simulator
+   ```sh
+    i
+   ```
+5. Open in Android Simulator
+   ```sh
+    a
+   ```
+
+
+## Demo
+[https://drive.google.com/file/d/1sLVw-JFUDPMqcUK1ZR6ZC7Ay6_t01Tqr/view?usp=sharing](https://drive.google.com/file/d/1sLVw-JFUDPMqcUK1ZR6ZC7Ay6_t01Tqr/view?usp=sharing)
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Nolan Winter - nolangwinter@gmail.com | 530-826-6300
+
+Project Link: [https://github.com/CPSC491MusicSharingApp/MusicSharingApp.git](https://github.com/CPSC491MusicSharingApp/MusicSharingApp.git)
