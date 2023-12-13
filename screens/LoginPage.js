@@ -53,7 +53,7 @@ const LoginPage = () => {
       async function authenticate ()  {
         const config = {
           issuer:"https://accounts.spotify.com",
-          clientId:"fd58139e33ac46d38a68c93bdfda2988",
+          clientId:"53d1686099db4b659b99550773395b7e",
           scopes: [
             "user-read-email",
             "user-library-read",
