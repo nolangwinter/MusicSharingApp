@@ -64,7 +64,8 @@ React Native, Expo, JavaScript, Express.js, MongoDB, Spotify API
 
 
 ## Demo
-[https://drive.google.com/file/d/1sLVw-JFUDPMqcUK1ZR6ZC7Ay6_t01Tqr/view?usp=sharing](https://drive.google.com/file/d/1sLVw-JFUDPMqcUK1ZR6ZC7Ay6_t01Tqr/view?usp=sharing)
+[https://drive.google.com/file/d/1_J5GYtY11RrJ6_yt8KAQ_Pb15KwFy8ct/view?usp=sharing](https://drive.google.com/file/d/1_J5GYtY11RrJ6_yt8KAQ_Pb15KwFy8ct/view?usp=sharing)
+
 
 
 

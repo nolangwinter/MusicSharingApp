@@ -1,10 +1,42 @@
-import { StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native'
+import { Alert, StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { UserType } from '../UserContext';
 import axios from 'axios';
 
 const SearchedTracks = ({ item }) => {
     const {userId, setUserId} = useContext(UserType);
+
+    const alertPost = () => {
+        Alert.alert(
+          // title
+          'Post Successful',
+          // text
+          'Your song has been posted.',
+          [
+            {
+              text: 'OK',
+              onPress: () => console.log('Confirmed Post') ,style: 'cancel'
+            },
+          ],
+          {cancelable: false},
+        );
+      };
+    
+      const alertError = () => {
+        Alert.alert(
+          // title
+          'Post Failed',
+          // text
+          'There was an error posting your song.',
+          [
+            {
+              text: 'OK',
+              onPress: () => console.log('Confirmed Error') ,style: 'cancel'
+            },
+          ],
+          {cancelable: false},
+        );
+      };
 
     const handlePostSubmit = () => {
         const postData = {
@@ -18,8 +50,10 @@ const SearchedTracks = ({ item }) => {
         axios
           .post("http://localhost:3000/create-post", postData)
           .then((response) => {
+            alertPost();
           })
           .catch((error) => {
+            alertError();
             console.log("error creating post", error);
           });
 
