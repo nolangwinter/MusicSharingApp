@@ -15,7 +15,23 @@ const RecentlyPlayed = ({item}) => {
       [
         {
           text: 'OK',
-          onPress: () => console.log('Confirmed Alert') ,style: 'cancel'
+          onPress: () => console.log('Confirmed Post') ,style: 'cancel'
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const alertError = () => {
+    Alert.alert(
+      // title
+      'Post Failed',
+      // text
+      'There was an error posting your song.',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('Confirmed Error') ,style: 'cancel'
         },
       ],
       {cancelable: false},
@@ -40,6 +56,7 @@ const RecentlyPlayed = ({item}) => {
           })
           .catch((error) => {
             console.log("error creating post", error);
+            alertError();
           });
 
         
