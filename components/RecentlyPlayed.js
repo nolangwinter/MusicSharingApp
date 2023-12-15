@@ -1,10 +1,26 @@
-import { StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native'
+import { Alert, StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native'
 import React, { useState, useContext } from 'react'
 import { UserType } from '../UserContext';
 import axios from 'axios';
 
 const RecentlyPlayed = ({item}) => {
   console.log
+
+  const alertPost = () => {
+    Alert.alert(
+      // title
+      'Post Successful',
+      // text
+      'Your song has been posted.',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('Confirmed Alert') ,style: 'cancel'
+        },
+      ],
+      {cancelable: false},
+    );
+  };
 
   const {userId, setUserId} = useContext(UserType);
 
@@ -20,6 +36,7 @@ const RecentlyPlayed = ({item}) => {
         axios
           .post("http://localhost:3000/create-post", postData)
           .then((response) => {
+            alertPost();
           })
           .catch((error) => {
             console.log("error creating post", error);
